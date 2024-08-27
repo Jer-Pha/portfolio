@@ -1,13 +1,12 @@
 import React from 'react';
 import ImageCarousel from './ImageCarousel';
+import ProjectDetails from './ProjectDetails';
 
 function ProjectCard({ project }) {
     return (
         <div className="project-card">
-            <ImageCarousel string={project.slug} />
-            <h3>{project.title}</h3>
-            <p>{project.description}</p>
-            <a href={project.link} target="_blank" rel="noopener noreferrer">View Project</a>
+            <ImageCarousel string={project.slug} imageCount={project.imageCount} />
+            <ProjectDetails key={project.title} project={project} />
         </div>
     );
 }
