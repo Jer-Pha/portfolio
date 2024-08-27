@@ -8,7 +8,6 @@ import AboutMe from './components/AboutMe';
 import Projects from './components/Projects';
 import { ModalProvider } from './components/ModalContext';
 import LightSource from './components/LightSource';
-import useShadowSkew from './components/useShadowSkew';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -23,14 +22,12 @@ function App() {
     setIsDarkMode(!isDarkMode);
   };
 
-  useShadowSkew();
-
   return (
     <ModalProvider><div className={`app ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-      <LightSource />
+      {/* <LightSource /> */}
       <Header toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
       <Hero />
-      {/* <AboutMe /> */}
+      <AboutMe />
       <Projects />
       <Footer />
     </div></ModalProvider>
