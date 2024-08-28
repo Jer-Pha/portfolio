@@ -8,20 +8,21 @@ function AboutMe() {
     const originalSectionTop = useRef(0); // Store original top position
 
     useEffect(() => {
-        let bottomOffset = 0;
-
         const handleScroll = () => {
             const section = sectionRef.current;
             if (section) {
-                const sectionBottom = section.getBoundingClientRect().bottom;
+                const sectionTop = section.getBoundingClientRect().top;
                 const currentScrollY = window.scrollY;
+                const styles = window.getComputedStyle(section);
+                const paddingTop = parseFloat(styles.paddingTop);
+                const paddingBottom = parseFloat(styles.paddingBottom);
+                const contentHeight = section.offsetHeight - paddingTop - paddingBottom;
 
-                if (!isFixed && sectionBottom <= window.innerHeight) {
+                if (!isFixed && sectionTop <= 0 && contentHeight <= window.innerHeight) {
                     // Store original top position before fixing
                     originalSectionTop.current = section.offsetTop;
-                    bottomOffset = window.innerHeight - sectionBottom;
                     setIsFixed(true);
-                } else if (isFixed && currentScrollY <= originalSectionTop.current - bottomOffset) {
+                } else if (isFixed && currentScrollY < originalSectionTop.current) {
                     // Unfix if scrolling up past original position
                     setIsFixed(false);
                 }
@@ -50,7 +51,7 @@ function AboutMe() {
             {isFixed && ( // Render placeholder only when not fixed
                 <div
                     style={{
-                        height: sectionRef.current?.offsetHeight + 'px',
+                        height: (sectionRef.current?.offsetHeight + 320) + 'px',
                     }}
                 />
             )}
