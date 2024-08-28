@@ -1,9 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ModalContext from './ModalContext';
+import { DarkModeIcon, LightModeIcon } from './Icons';
 
 function Header({ isDarkMode, toggleDarkMode }) {
     const [isFixed, setIsFixed] = useState(false);
     const { modalState } = useContext(ModalContext);
+
+    const handleHomeClick = (event) => {
+        event.preventDefault(); // Prevent default jump behavior
+        const homeSection = document.getElementById('home');
+        homeSection.scrollIntoView({ behavior: 'smooth' });
+    };
+    const handleProjectsClick = (event) => {
+        event.preventDefault();
+        const projectsSection = document.getElementById('projects');
+        projectsSection.scrollIntoView({ behavior: 'smooth' });
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -24,15 +36,15 @@ function Header({ isDarkMode, toggleDarkMode }) {
         <nav id="navHeader" className={`header ${isFixed ? 'fixed' : ''} ${modalState.isVisible ? 'hidden' : ''}`}>
             <div className="mode-toggle" onClick={toggleDarkMode}>
                 {isDarkMode ? (
-                    <img src="/img/svg/mode-light.svg" alt="Light Mode" />
+                    <LightModeIcon alt="Light Mode" />
                 ) : (
-                    <img src="/img/svg/mode-dark.svg" alt="Dark Mode" />
+                    <DarkModeIcon alt="Dark Mode" />
                 )}
             </div>
             <div className="header-links">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
+                <a href="#" onClick={handleHomeClick}>Home</a>
+                <a href="#" id="about-link">About</a>
+                <a href="#" onClick={handleProjectsClick}>Projects</a>
             </div>
         </nav>
     );
