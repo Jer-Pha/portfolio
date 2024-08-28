@@ -80,23 +80,26 @@ body {
 
 .fixed {
   position: fixed !important;
-  top: 0;
-  left: 0;
-  transition: top 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+#about.fixed {
+  bottom: 0;
 }
 
 .header.fixed {
   visibility: visible;
+  top: 0;
+  left: 0;
   right: 0;
   z-index: 99;
-  transition: all 0.3s ease;
 }
 
 .mode-toggle {
   cursor: pointer;
 }
 
-.mode-toggle img {
+.mode-toggle svg {
   width: 1.5rem;
   height: 1.5rem;
   filter: invert(var(--img-invert));
@@ -230,12 +233,63 @@ section>h2:not(.mirror-header) {
   width: 100%;
 }
 
+.about-container {
+  display: flex;
+  gap: 4rem;
+  margin-top: 2rem;
+}
+
+.profile-picture {
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.about-content {
+  flex: 1;
+  max-width: 40vw;
+}
+
+.blurb {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  background-color: var(--surface);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  margin: 0 0 2rem 0;
+}
+
+.icons {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.icons svg {
+  width: 4rem;
+  height: 4rem;
+}
+
+/* Responsive adjustments (example for smaller screens) */
+@media (max-width: 768px) {
+  .about-container {
+    flex-direction: column;
+    /* Stack columns vertically */
+  }
+
+  .profile-picture-container {
+    margin-bottom: 20px;
+  }
+}
+
 /***************************
 ********* Projects *********
 ***************************/
 
 #projects {
   background-color: var(--surface);
+  margin-top: 20rem;
 }
 
 .project-cards {
@@ -310,13 +364,13 @@ section>h2:not(.mirror-header) {
   pointer-events: none;
 }
 
-.navigation div {
+.navigation .tooltip-container {
   pointer-events: auto;
 }
 
-.navigation div,
+.navigation .tooltip-container,
 .close-button,
-.modal-navigation div {
+.modal-navigation .tooltip-container {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
@@ -324,11 +378,11 @@ section>h2:not(.mirror-header) {
   margin: 0 1rem;
 }
 
-.navigation div,
-.navigation div>img,
+.navigation .tooltip-container,
+.navigation .tooltip-container>svg,
 .close-button,
-.modal-navigation div,
-.modal-navigation div img {
+.modal-navigation .tooltip-container,
+.modal-navigation .tooltip-container svg {
   width: 1.5rem;
   height: 1.5rem;
 }
@@ -400,7 +454,6 @@ section>h2:not(.mirror-header) {
   left: 0;
   width: 100%;
   transform: translateY(-50%);
-  /* Center vertically */
 }
 
 .modal-navigation div {
@@ -408,10 +461,35 @@ section>h2:not(.mirror-header) {
   opacity: 0.7;
 }
 
-/* .modal-navigation img {
-  width: 2rem;
-  height: 2rem;
-} */
+
+/***************************
+********* Tooltip **********
+***************************/
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: opacity 0.2s;
+}
+
+.tooltip-container:hover .tooltip-text,
+.tooltip-container .tooltip-text[style*="visibility: visible"] {
+  visibility: visible;
+  opacity: 1;
+}
 
 /***************************
 ********** Footer **********
@@ -438,7 +516,7 @@ footer a {
   margin: 0 0.5rem;
 }
 
-footer img {
+footer svg {
   width: 2rem;
   height: 2rem;
   filter: invert(var(--img-invert));
