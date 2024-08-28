@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import ModalContext from './ModalContext';
+import { ArrowLeftIcon, ArrowRightIcon, CloseIcon } from './Icons';
 
 function ImageCarousel(props) {
     const [images, setImages] = useState([]);
@@ -32,22 +33,15 @@ function ImageCarousel(props) {
         if (prevString.current === props.string) return;
 
         const fetchImages = async () => {
-            const imageUrls = [];
-            for (let i = 1; i <= props.imageCount; i++) {
-                imageUrls.push({
-                    webp: `/img/webp/${props.string}-${i}.webp`,
-                    png: `/img/png/${props.string}-${i}.png`
-                });
-            }
+            const imagePromises = []; for (let i = 1; i <= props.imageCount; i++) {
+                const webpPromise = import(`../img/webp/${props.string}-${i}.webp`)
+                    .then(({ default: webpUrl }) => webpUrl);
+                const pngPromise = import(`../img/png/${props.string}-${i}.png`)
+                    .then(({ default: pngUrl }) => pngUrl);
 
-            const imagePromises = imageUrls.map((urlObj) =>
-                fetch(urlObj.webp)
-                    .then((response) => response.blob())
-                    .then((blob) => ({
-                        webp: URL.createObjectURL(blob),
-                        png: urlObj.png
-                    }))
-            );
+                imagePromises.push(Promise.all([webpPromise, pngPromise])
+                    .then(([webpUrl, pngUrl]) => ({ webp: webpUrl, png: pngUrl })));
+            }
 
             const imageData = await Promise.all(imagePromises);
             setImages(imageData);
@@ -90,10 +84,10 @@ function ImageCarousel(props) {
                 ))}
                 <div className="navigation">
                     <div onClick={() => setCurrentSlide((prevSlide) => (prevSlide - 1 + images.length) % images.length)}>
-                        <img src="/img/svg/arrow-left.svg" alt="Previous" />
+                        <ArrowLeftIcon alt="Previous" />
                     </div>
                     <div onClick={() => setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length)}>
-                        <img src="/img/svg/arrow-right.svg" alt="Next" />
+                        <ArrowRightIcon alt="Next" />
                     </div>
                 </div>
             </div>
@@ -108,16 +102,16 @@ function ImageCarousel(props) {
                         <img src={selectedImage} alt={props.string} />
                         <div className="modal-navigation">
                             <div onClick={handleModalPrev}>
-                                <img src="/img/svg/arrow-left.svg" alt="Previous" />
+                                <ArrowLeftIcon alt="Previous" />
                             </div>
                             <div onClick={handleModalNext}>
-                                <img src="/img/svg/arrow-right.svg" alt="Next" />
+                                <ArrowRightIcon alt="Next" />
                             </div>
                         </div>
                         <div
                             className="close-button"
                             onClick={() => setModalState(false)}>
-                            <img src="/img/svg/close.svg" alt="Close" />
+                            <CloseIcon alt="Close" />
                         </div>
                     </div>
                 </div>
