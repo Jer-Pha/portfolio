@@ -12,6 +12,7 @@ import { ReactComponent as LinkedIn } from '../img/svg/linkedin.svg';
 import { ReactComponent as GitHub } from '../img/svg/github.svg';
 
 // Skills
+import { ReactComponent as Api } from '../img/svg/api.svg';
 import { ReactComponent as Aws } from '../img/svg/aws.svg';
 import { ReactComponent as Celery } from '../img/svg/celery.svg';
 import { ReactComponent as ChartJs } from '../img/svg/chartjs.svg';
@@ -101,6 +102,14 @@ function AwsIcon() {
     return (
         <Tooltip text="AWS">
             <Aws />
+        </Tooltip>
+    );
+}
+
+function ApiIcon() {
+    return (
+        <Tooltip text="API">
+            <Api />
         </Tooltip>
     );
 }
@@ -329,6 +338,7 @@ export {
     CloseIcon,
     LinkedInIcon,
     GitHubIcon,
+    ApiIcon,
     AwsIcon,
     CeleryIcon,
     ChartJsIcon,
