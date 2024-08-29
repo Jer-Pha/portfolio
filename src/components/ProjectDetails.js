@@ -1,11 +1,15 @@
 import React from 'react';
+import ImageCarousel from './ImageCarousel';
 
-function ProjectDetails({ project }) {
+function ProjectDetails({ projects, selectedProjectId }) {
+    const selectedId = selectedProjectId || 1;
+    const selectedProject = projects.find(project => project.id === selectedId);
+
     return (
         <div className="project-details">
-            <h3>{project.title}</h3>
-            <p>{project.description}</p>
-            <a href={project.link} target="_blank" rel="noopener noreferrer">View Project</a>
+            <h2>{selectedProject.title}</h2>
+            <p>{selectedProject.blurb}</p>
+            <ImageCarousel string={selectedProject.slug} imageCount={selectedProject.imageCount} />
         </div>
     );
 }
