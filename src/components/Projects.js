@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ProjectList from './ProjectList';
 import ProjectDetails from './ProjectDetails';
 import ProjectIcons from './ProjectIcons';
 
 
 function Projects() {
+    const [isFixed, setIsFixed] = useState(false);
+    const sectionRef = useRef(null);
+    const originalSectionTop = useRef(0); // Store original top position
     const [selectedProjectId, setSelectedProjectId] = useState(null);
     const projects = [
         {
             id: 1,
             title: 'Kinda Funny Database',
             slug: 'kfdb',
-            blurb: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            blurb: "Dive into the ultimate Kinda Funny resource with this fan-built database, providing a comprehensive resource for Kinda Funny YouTube and Patreon content. Originally created as a PHP site in 2022, I rebuilt the site from the ground up in Python with the Django framework. Containerized with Docker and hosted on AWS, this database is optimized for performance with a focus on scalability. The frontend leverages HTMX for a seamless user experience and is styled with Tailwind CSS and DaisyUI for a modern and responsive design. Explore the database and utilize the public REST API to build your own Kinda Funny applications. View the full project on GitHub.",
             link: 'https://www.kfdb.app/',
             imageCount: 5,
             icons: [
@@ -35,6 +38,7 @@ function Projects() {
                 'S3Icon',
                 'RssIcon',
                 'CloudflareIcon',
+                'GimpIcon',
                 'SeoIcon',
                 'YouTubeIcon',
                 'PatreonIcon',
@@ -44,7 +48,7 @@ function Projects() {
             id: 2,
             title: 'Survayy',
             slug: 'survayy',
-            blurb: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            blurb: 'Simplify ranked-choice decision making with Survayy, a platform for creating, sharing, and analyzing surveys. Create surveys, gather responses, and gain valuable insights with robust analytics. Powered by Django and MySQL for a robust and reliable experience, utilizing Celery for efficient background task processing, and featuring a customized Material Design interface for a familiar and intuitive user experience, Survayy is built to handle high-volume surveys, with each survey capable of receiving up to 100,000 responses.',
             link: 'https://www.survayy.com/',
             imageCount: 5,
             icons: [
@@ -61,10 +65,42 @@ function Projects() {
                 'RedisIcon',
                 'CloudflareIcon',
                 'SesIcon',
+                'GimpIcon',
                 'SeoIcon',
                 'GoogleAdsenseIcon',
                 'GoogleAnalyticsIcon',
                 'PayPalIcon',
+            ],
+        },
+        {
+            id: 3,
+            title: 'Portfolio Website',
+            slug: 'portfolio',
+            blurb: "This portfolio was developed as a hands-on learning experience with React while exploring the potential of AI tools by utilizing Google's Gemini to accelerate development. I gained proficiency in component structure and state management through successful prompt engineering. This project showcases my eagerness to embrace new technologies and continuously expand my skill set.",
+            link: '#',
+            imageCount: 1,
+            icons: [
+                'HtmlIcon',
+                'CssIcon',
+                'JavaScriptIcon',
+                'ReactIcon',
+                'GeminiIcon',
+                'GitIcon',
+                'GimpIcon',
+            ],
+        },
+        {
+            id: 4,
+            title: 'django-qs2csv',
+            slug: 'qs2csv',
+            blurb: 'To streamline data export for users of my survey platform, Survayy, I developed django-qs2csv, a Python package for converting Django QuerySets to CSV files. Focused on providing a seamless developer experience, it features thorough documentation, comprehensive test coverage, and type hints. This open-source package is available on GitHub and installable via pip.',
+            link: 'https://github.com/Jer-Pha/django-qs2csv',
+            imageCount: 5,
+            icons: [
+                'PythonIcon',
+                'DjangoIcon',
+                'GitIcon',
+                'PyPiIcon',
             ],
         },
     ];
@@ -73,33 +109,68 @@ function Projects() {
     };
 
     useEffect(() => {
-        return () => window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navHeader');
-            const projectsSection = document.getElementById('projects');
+        const handleScroll = () => {
+            const section = sectionRef.current;
+            if (section) {
+                const sectionTop = section.getBoundingClientRect().top;
+                const currentScrollY = window.scrollY;
+                const styles = window.getComputedStyle(section);
+                const paddingTop = parseFloat(styles.paddingTop);
+                const paddingBottom = parseFloat(styles.paddingBottom);
+                const contentHeight = section.offsetHeight - paddingTop - paddingBottom;
 
-            if (nav && projectsSection) {
-                const navBottom = nav.getBoundingClientRect().bottom;
-                const projectsTop = projectsSection.getBoundingClientRect().top;
-
-                if (projectsTop >= navBottom) {
-                    nav.style.backgroundColor = 'var(--surface)';
-                } else {
-                    nav.style.backgroundColor = 'var(--background)';
+                if (!isFixed && sectionTop <= 0 && contentHeight <= window.innerHeight) {
+                    // Store original top position before fixing
+                    originalSectionTop.current = section.offsetTop;
+                    setIsFixed(true);
+                } else if (isFixed && currentScrollY < originalSectionTop.current) {
+                    // Unfix if scrolling up past original position
+                    setIsFixed(false);
                 }
             }
-        });
-    }, []);
+        };
+
+        // Handle clicks on the "Projects" link
+        const handleProjectsLinkClick = (event) => {
+            event.preventDefault();
+            window.scrollTo({
+                top: originalSectionTop.current,
+                behavior: 'smooth'
+            });
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        document.getElementById('projects-link')?.addEventListener('click', handleProjectsLinkClick);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            document.getElementById('projects-link')?.removeEventListener('click', handleProjectsLinkClick);
+        };
+    }, [isFixed]);
 
     return (
-        <section id="projects" className="projects section-body">
-            <h2 data-header="Projects">Projects</h2>
-            <div className="project-container">
-                <ProjectList projects={projects} onProjectSelect={handleProjectSelect} />
-                <ProjectDetails projects={projects} selectedProjectId={selectedProjectId} />
-                <ProjectIcons projects={projects} selectedProjectId={selectedProjectId} />
+        <>
+            {isFixed && ( // Render placeholder only when not fixed
+                <div
+                    style={{
+                        height: (sectionRef.current?.offsetHeight + 480) + 'px',
+                    }}
+                />
+            )}
+            <section
+                id="projects"
+                className={`projects section-body ${isFixed ? 'fixed' : ''}`}
+                ref={sectionRef}>
+                <h2>Projects</h2>
+                <div className="outer-project-container">
+                    <div className="inner-project-container">
+                        <ProjectList projects={projects} onProjectSelect={handleProjectSelect} />
+                        <ProjectDetails projects={projects} selectedProjectId={selectedProjectId} />
+                    </div>
+                    <ProjectIcons projects={projects} selectedProjectId={selectedProjectId} />
 
-            </div>
-        </section>
+                </div>
+            </section>
+        </>
     );
 }
 
