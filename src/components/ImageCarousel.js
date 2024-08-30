@@ -48,6 +48,9 @@ function ImageCarousel(props) {
         };
 
         fetchImages();
+
+        setCurrentSlide(0);
+        setSelectedImage(null);
         prevString.current = props.string;
     }, [props.string]);
 
