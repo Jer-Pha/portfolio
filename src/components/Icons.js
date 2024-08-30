@@ -6,10 +6,12 @@ import { ReactComponent as DarkMode } from '../img/svg/mode-dark.svg';
 import { ReactComponent as ArrowLeft } from '../img/svg/arrow-left.svg';
 import { ReactComponent as ArrowRight } from '../img/svg/arrow-right.svg';
 import { ReactComponent as Close } from '../img/svg/close.svg';
+import { ReactComponent as NewWindow } from '../img/svg/new_window.svg';
 
 // Socials
 import { ReactComponent as LinkedIn } from '../img/svg/linkedin.svg';
 import { ReactComponent as GitHub } from '../img/svg/github.svg';
+import { ReactComponent as Email } from '../img/svg/email.svg';
 
 // Skills
 import { ReactComponent as Api } from '../img/svg/api.svg';
@@ -22,6 +24,8 @@ import { ReactComponent as DaisyUi } from '../img/svg/daisyui.svg';
 import { ReactComponent as Django } from '../img/svg/django.svg';
 import { ReactComponent as Docker } from '../img/svg/docker.svg';
 import { ReactComponent as ElasticBeanstalk } from '../img/svg/elastic-beanstalk.svg';
+import { ReactComponent as Gemini } from '../img/svg/gemini.svg';
+import { ReactComponent as Gimp } from '../img/svg/gimp.svg';
 import { ReactComponent as Git } from '../img/svg/git.svg';
 import { ReactComponent as GoogleAdsense } from '../img/svg/google-adsense.svg';
 import { ReactComponent as GoogleAnalytics } from '../img/svg/google-analytics.svg';
@@ -32,8 +36,10 @@ import { ReactComponent as MaterialDesign } from '../img/svg/materialdesign.svg'
 import { ReactComponent as MySql } from '../img/svg/mysql.svg';
 import { ReactComponent as Patreon } from '../img/svg/patreon.svg';
 import { ReactComponent as PayPal } from '../img/svg/paypal.svg';
+import { ReactComponent as PyPi } from '../img/svg/pypi.svg';
 import { ReactComponent as Python } from '../img/svg/python.svg';
 import { ReactComponent as Rds } from '../img/svg/rds.svg';
+import { ReactComponent as React } from '../img/svg/react.svg';
 import { ReactComponent as Redis } from '../img/svg/redis.svg';
 import { ReactComponent as Rss } from '../img/svg/rss.svg';
 import { ReactComponent as S3 } from '../img/svg/s3.svg';
@@ -82,6 +88,14 @@ function CloseIcon() {
     );
 }
 
+function NewWindowIcon() {
+    return (
+        <Tooltip text="View Project">
+            <NewWindow />
+        </Tooltip>
+    );
+}
+
 function LinkedInIcon() {
     return (
         <Tooltip text="LinkedIn">
@@ -94,6 +108,14 @@ function GitHubIcon() {
     return (
         <Tooltip text="GitHub">
             <GitHub />
+        </Tooltip>
+    );
+}
+
+function EmailIcon() {
+    return (
+        <Tooltip text="Email Me">
+            <Email />
         </Tooltip>
     );
 }
@@ -178,6 +200,22 @@ function ElasticBeanstalkIcon() {
     );
 }
 
+function GeminiIcon() {
+    return (
+        <Tooltip text="Gemini">
+            <Gemini />
+        </Tooltip>
+    );
+}
+
+function GimpIcon() {
+    return (
+        <Tooltip text="GIMP">
+            <Gimp />
+        </Tooltip>
+    );
+}
+
 function GitIcon() {
     return (
         <Tooltip text="Git">
@@ -185,7 +223,6 @@ function GitIcon() {
         </Tooltip>
     );
 }
-
 function GoogleAdsenseIcon() {
     return (
         <Tooltip text="Google Adsense">
@@ -258,6 +295,14 @@ function PayPalIcon() {
     );
 }
 
+function PyPiIcon() {
+    return (
+        <Tooltip text="PyPI">
+            <PyPi />
+        </Tooltip>
+    );
+}
+
 function PythonIcon() {
     return (
         <Tooltip text="Python">
@@ -270,6 +315,14 @@ function RdsIcon() {
     return (
         <Tooltip text="AWS RDS">
             <Rds />
+        </Tooltip>
+    );
+}
+
+function ReactIcon() {
+    return (
+        <Tooltip text="React">
+            <React />
         </Tooltip>
     );
 }
@@ -336,8 +389,10 @@ export {
     ArrowLeftIcon,
     ArrowRightIcon,
     CloseIcon,
+    NewWindowIcon,
     LinkedInIcon,
     GitHubIcon,
+    EmailIcon,
     ApiIcon,
     AwsIcon,
     CeleryIcon,
@@ -348,6 +403,8 @@ export {
     DjangoIcon,
     DockerIcon,
     ElasticBeanstalkIcon,
+    GeminiIcon,
+    GimpIcon,
     GitIcon,
     GoogleAdsenseIcon,
     GoogleAnalyticsIcon,
@@ -358,8 +415,10 @@ export {
     MySqlIcon,
     PatreonIcon,
     PayPalIcon,
+    PyPiIcon,
     PythonIcon,
     RdsIcon,
+    ReactIcon,
     RedisIcon,
     RssIcon,
     S3Icon,
