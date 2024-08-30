@@ -2,10 +2,37 @@ import React, { useState, useEffect, useRef } from 'react';
 import profilePicture from '../img/png/jeremy.png';
 import { PythonIcon, DjangoIcon, MySqlIcon, CssIcon, HtmlIcon, JavaScriptIcon, GitIcon } from './Icons'
 
-function AboutMe() {
+function About() {
     const [isFixed, setIsFixed] = useState(false);
     const sectionRef = useRef(null);
     const originalSectionTop = useRef(0); // Store original top position
+    const aboutContentRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            },
+            {
+                threshold: 0.5,
+            }
+        );
+
+        if (aboutContentRef.current) {
+            observer.observe(aboutContentRef.current);
+        }
+
+        return () => {
+            if (aboutContentRef.current) {
+                observer.unobserve(aboutContentRef.current);
+            }
+        };
+    }, []);
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -42,7 +69,7 @@ function AboutMe() {
         document.getElementById('about-link')?.addEventListener('click', handleAboutLinkClick);
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            document.querySelector('a[href="#about"]')?.removeEventListener('click', handleAboutLinkClick);
+            document.getElementById('about-link')?.removeEventListener('click', handleAboutLinkClick);
         };
     }, [isFixed]);
 
@@ -51,7 +78,7 @@ function AboutMe() {
             {isFixed && ( // Render placeholder only when not fixed
                 <div
                     style={{
-                        height: (sectionRef.current?.offsetHeight + 320) + 'px',
+                        height: (sectionRef.current?.offsetHeight + 480) + 'px',
                     }}
                 />
             )}
@@ -59,13 +86,11 @@ function AboutMe() {
                 id="about"
                 className={`about-me section-body ${isFixed ? 'fixed' : ''}`}
                 ref={sectionRef}>
-                <h2 data-header="About">About</h2>
-                <div className="about-container">
+                <h2>About</h2>
+                <div className="about-container" ref={aboutContentRef}>
                     <div className="about-content">
                         <p className="blurb">
-                            A passionate software developer with expertise in React, JavaScript, and Python.
-                            I enjoy building user-friendly and innovative web applications.
-                            I'm a passionate software developer with a focus on [your area of expertise]. I have [number] years of experience in [relevant technologies]. I'm always eager to learn new things and contribute to innovative projects.
+                            Driven by a passion for crafting elegant and efficient software solutions, I'm a data-driven software developer with a focus on backend optimization and frontend experience. With over two years of hands-on experience building production-level applications with Python and Django, I've successfully optimized complex systems for improved performance and scalability. I enjoy creating user-friendly, innovative, and performant applications that deliver tangible value. Continuously exploring new technologies and best practices, I'm always eager to contribute to innovative projects and make a meaningful impact.
                         </p>
                         <div className="icons">
                             <PythonIcon />
@@ -86,4 +111,4 @@ function AboutMe() {
     );
 }
 
-export default AboutMe;
+export default About;
