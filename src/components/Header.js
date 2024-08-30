@@ -6,15 +6,10 @@ function Header({ isDarkMode, toggleDarkMode }) {
     const [isFixed, setIsFixed] = useState(false);
     const { modalState } = useContext(ModalContext);
 
-    const handleHomeClick = (event) => {
+    const handleContactClick = (event) => {
         event.preventDefault(); // Prevent default jump behavior
-        const homeSection = document.getElementById('home');
+        const homeSection = document.getElementById('footer');
         homeSection.scrollIntoView({ behavior: 'smooth' });
-    };
-    const handleProjectsClick = (event) => {
-        event.preventDefault();
-        const projectsSection = document.getElementById('projects');
-        projectsSection.scrollIntoView({ behavior: 'smooth' });
     };
 
     useEffect(() => {
@@ -33,7 +28,7 @@ function Header({ isDarkMode, toggleDarkMode }) {
     }, []);
 
     return (
-        <nav id="navHeader" className={`header ${isFixed ? 'fixed' : ''} ${modalState.isVisible ? 'hidden' : ''}`}>
+        <nav id="nav-header" className={`header ${isFixed ? 'fixed' : ''} ${modalState.isVisible ? 'hidden' : ''}`}>
             <div className="mode-toggle" onClick={toggleDarkMode}>
                 {isDarkMode ? (
                     <LightModeIcon alt="Light Mode" />
@@ -42,9 +37,9 @@ function Header({ isDarkMode, toggleDarkMode }) {
                 )}
             </div>
             <div className="header-links">
-                <a href="#" onClick={handleHomeClick}>Home</a>
                 <a href="#" id="about-link">About</a>
-                <a href="#" onClick={handleProjectsClick}>Projects</a>
+                <a href="#" id="projects-link">Projects</a>
+                <a href="#" onClick={handleContactClick}>Contact</a>
             </div>
         </nav>
     );
