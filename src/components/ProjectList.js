@@ -11,12 +11,15 @@ function ProjectList({ projects, onProjectSelect }) {
     return (
         <div className="project-list">
             {projects.map(project => (
-                <div
-                    key={project.id}
-                    onClick={() => handleProjectClick(project.id)}
-                    className={selectedProjectId === project.id ? 'active' : ''} // Add active class
-                >
-                    {project.title}</div>
+                <div key={project.id}>
+                    <div
+                        key={project.id}
+                        onClick={() => handleProjectClick(project.id)}
+                        className={`list-item ${selectedProjectId === project.id ? 'active' : ''}`}
+                    >
+                        {project.title}
+                    </div>
+                </div>
             ))}
         </div>
     );
