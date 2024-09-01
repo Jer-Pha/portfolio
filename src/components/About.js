@@ -78,7 +78,7 @@ function About() {
             {isFixed && ( // Render placeholder only when not fixed
                 <div
                     style={{
-                        height: (sectionRef.current?.offsetHeight + 480) + 'px',
+                        height: (sectionRef.current?.offsetHeight) + 'px',
                     }}
                 />
             )}
