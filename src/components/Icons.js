@@ -7,6 +7,7 @@ import { ReactComponent as ArrowLeft } from '../img/svg/arrow-left.svg';
 import { ReactComponent as ArrowRight } from '../img/svg/arrow-right.svg';
 import { ReactComponent as Close } from '../img/svg/close.svg';
 import { ReactComponent as NewWindow } from '../img/svg/new_window.svg';
+import { ReactComponent as WaveSvg } from '../img/svg/wave.svg';
 
 // Socials
 import { ReactComponent as LinkedIn } from '../img/svg/linkedin.svg';
@@ -107,6 +108,14 @@ function LinkedInIcon() {
 function GitHubIcon() {
     return (
         <Tooltip text="GitHub">
+            <GitHub />
+        </Tooltip>
+    );
+}
+
+function ViewOnGitHubIcon() {
+    return (
+        <Tooltip text="View on GitHub">
             <GitHub />
         </Tooltip>
     );
@@ -390,8 +399,10 @@ export {
     ArrowRightIcon,
     CloseIcon,
     NewWindowIcon,
+    WaveSvg,
     LinkedInIcon,
     GitHubIcon,
+    ViewOnGitHubIcon,
     EmailIcon,
     ApiIcon,
     AwsIcon,
