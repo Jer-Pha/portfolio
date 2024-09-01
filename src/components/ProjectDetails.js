@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageCarousel from './ImageCarousel';
-import { NewWindowIcon } from './Icons';
+import { NewWindowIcon, ViewOnGitHubIcon } from './Icons';
 
 function ProjectDetails({ projects, selectedProjectId }) {
     const selectedId = selectedProjectId || 1;
@@ -13,6 +13,11 @@ function ProjectDetails({ projects, selectedProjectId }) {
                     {selectedProject.title}
                     <NewWindowIcon alt="View Project" />
                 </a>
+                {selectedProject.source && (
+                    <a href={selectedProject.source} target="_blank" rel="noreferrer nofollow noopener" className="view-github">
+                        <ViewOnGitHubIcon alt="View on GitHub" />
+                    </a>
+                )}
             </h3>
             <p>{selectedProject.blurb}</p>
             <ImageCarousel string={selectedProject.slug} imageCount={selectedProject.imageCount} />
