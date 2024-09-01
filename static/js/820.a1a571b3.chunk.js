@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkportfolio=self.webpackChunkportfolio||[]).push([[820],{820:(e,p,s)=>{e.exports=s.p+"static/media/survayy-2.3e17a374398c9f6759a8.png"}}]);
