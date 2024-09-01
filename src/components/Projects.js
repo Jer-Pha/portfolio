@@ -16,6 +16,7 @@ function Projects() {
             slug: 'kfdb',
             blurb: "Dive into the ultimate Kinda Funny resource with this fan-built database, providing a comprehensive resource for Kinda Funny YouTube and Patreon content. Originally created as a PHP site in 2022, I rebuilt the site from the ground up in Python with the Django framework. Containerized with Docker and hosted on AWS, this database is optimized for performance with a focus on scalability. The frontend leverages HTMX for a seamless user experience and is styled with Tailwind CSS and DaisyUI for a modern and responsive design. Explore the database and utilize the public REST API to build your own Kinda Funny applications. View the full project on GitHub.",
             link: 'https://www.kfdb.app/',
+            source: 'https://github.com/Jer-Pha/kfdb',
             imageCount: 5,
             icons: [
                 'PythonIcon',
@@ -78,7 +79,7 @@ function Projects() {
             slug: 'portfolio',
             blurb: "This portfolio was developed as a hands-on learning experience with React while exploring the potential of AI tools by utilizing Google's Gemini to accelerate development. I gained proficiency in component structure and state management through successful prompt engineering. This project showcases my eagerness to embrace new technologies and continuously expand my skill set.",
             link: '#',
-            imageCount: 1,
+            imageCount: 3,
             icons: [
                 'HtmlIcon',
                 'CssIcon',
@@ -95,6 +96,7 @@ function Projects() {
             slug: 'qs2csv',
             blurb: 'To streamline data export for users of my survey platform, Survayy, I developed django-qs2csv, a Python package for converting Django QuerySets to CSV files. Focused on providing a seamless developer experience, it features thorough documentation, comprehensive test coverage, and type hints. This open-source package is available on GitHub and installable via pip.',
             link: 'https://github.com/Jer-Pha/django-qs2csv',
+            source: 'https://github.com/Jer-Pha/django-qs2csv',
             imageCount: 5,
             icons: [
                 'PythonIcon',
@@ -107,6 +109,32 @@ function Projects() {
     const handleProjectSelect = (projectId) => {
         setSelectedProjectId(projectId);
     };
+    const projectsContentRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            },
+            {
+                threshold: 0.5,
+            }
+        );
+
+        if (projectsContentRef.current) {
+            observer.observe(projectsContentRef.current);
+        }
+
+        return () => {
+            if (projectsContentRef.current) {
+                observer.unobserve(projectsContentRef.current);
+            }
+        };
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -152,7 +180,7 @@ function Projects() {
             {isFixed && ( // Render placeholder only when not fixed
                 <div
                     style={{
-                        height: (sectionRef.current?.offsetHeight + 480) + 'px',
+                        height: (sectionRef.current?.offsetHeight) + 'px',
                     }}
                 />
             )}
@@ -161,7 +189,7 @@ function Projects() {
                 className={`projects section-body ${isFixed ? 'fixed' : ''}`}
                 ref={sectionRef}>
                 <h2>Projects</h2>
-                <div className="outer-project-container">
+                <div className="outer-project-container" ref={projectsContentRef}>
                     <div className="inner-project-container">
                         <ProjectList projects={projects} onProjectSelect={handleProjectSelect} />
                         <ProjectDetails projects={projects} selectedProjectId={selectedProjectId} />
