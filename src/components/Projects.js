@@ -77,8 +77,8 @@ function Projects() {
             id: 3,
             title: 'Portfolio Website',
             slug: 'portfolio',
-            blurb: "This portfolio was developed as a hands-on learning experience with React while exploring the potential of AI tools by utilizing Google's Gemini to accelerate development. I gained proficiency in component structure and state management through successful prompt engineering. This project showcases my eagerness to embrace new technologies and continuously expand my skill set.",
-            link: '#',
+            blurb: "This portfolio was developed as a hands-on learning experience with React while exploring the potential of AI tools by utilizing Google's Gemini to accelerate development. I gained proficiency in component structure and state management through successful prompt engineering. This project showcases my eagerness to embrace new technologies and continuously expand my skill set. View the full project on GitHub.",
+            source: 'https://github.com/Jer-Pha/portfolio',
             imageCount: 3,
             icons: [
                 'HtmlIcon',
@@ -95,7 +95,6 @@ function Projects() {
             title: 'django-qs2csv',
             slug: 'qs2csv',
             blurb: 'To streamline data export for users of my survey platform, Survayy, I developed django-qs2csv, a Python package for converting Django QuerySets to CSV files. Focused on providing a seamless developer experience, it features thorough documentation, comprehensive test coverage, and type hints. This open-source package is available on GitHub and installable via pip.',
-            link: 'https://github.com/Jer-Pha/django-qs2csv',
             source: 'https://github.com/Jer-Pha/django-qs2csv',
             imageCount: 5,
             icons: [
@@ -125,13 +124,14 @@ function Projects() {
             }
         );
 
-        if (projectsContentRef.current) {
-            observer.observe(projectsContentRef.current);
+        const observedElement = projectsContentRef.current;
+        if (observedElement) {
+            observer.observe(observedElement);
         }
 
         return () => {
-            if (projectsContentRef.current) {
-                observer.unobserve(projectsContentRef.current);
+            if (observedElement) {
+                observer.unobserve(observedElement);
             }
         };
     }, []);
@@ -147,11 +147,18 @@ function Projects() {
                 const paddingBottom = parseFloat(styles.paddingBottom);
                 const contentHeight = section.offsetHeight - paddingTop - paddingBottom;
 
-                if (!isFixed && sectionTop <= 0 && contentHeight <= window.innerHeight) {
+                const viewportHeight = Math.max(
+                    document.documentElement.clientHeight ?? 0,
+                    window.innerHeight ?? 0
+                );
+
+                if (!isFixed && sectionTop <= 0 && contentHeight <= viewportHeight) {
                     // Store original top position before fixing
                     originalSectionTop.current = section.offsetTop;
                     setIsFixed(true);
-                } else if (isFixed && currentScrollY < originalSectionTop.current) {
+                } else if (isFixed
+                    && (currentScrollY < originalSectionTop.current
+                        || currentScrollY < viewportHeight * 2)) {
                     // Unfix if scrolling up past original position
                     setIsFixed(false);
                 }
@@ -168,10 +175,15 @@ function Projects() {
         };
 
         window.addEventListener('scroll', handleScroll);
-        document.getElementById('projects-link')?.addEventListener('click', handleProjectsLinkClick);
+        const projectsLink = document.getElementById('projects-link');
+        if (projectsLink) {
+            projectsLink.addEventListener('click', handleProjectsLinkClick);
+        }
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            document.getElementById('projects-link')?.removeEventListener('click', handleProjectsLinkClick);
+            if (projectsLink) {
+                projectsLink.removeEventListener('click', handleProjectsLinkClick);
+            }
         };
     }, [isFixed]);
 
