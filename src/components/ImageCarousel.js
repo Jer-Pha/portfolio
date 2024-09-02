@@ -52,7 +52,7 @@ function ImageCarousel(props) {
         setCurrentSlide(0);
         setSelectedImage(null);
         prevString.current = props.string;
-    }, [props.string]);
+    }, [props.string, props.imageCount]);
 
     useEffect(() => {
         toggleBodyOverflow(modalState.isVisible);
