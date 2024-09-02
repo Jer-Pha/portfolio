@@ -22,13 +22,15 @@ function About() {
             }
         );
 
-        if (aboutContentRef.current) {
-            observer.observe(aboutContentRef.current);
+        const observedElement = aboutContentRef.current;
+
+        if (observedElement) {
+            observer.observe(observedElement);
         }
 
         return () => {
-            if (aboutContentRef.current) {
-                observer.unobserve(aboutContentRef.current);
+            if (observedElement) {
+                observer.unobserve(observedElement);
             }
         };
     }, []);
@@ -45,11 +47,18 @@ function About() {
                 const paddingBottom = parseFloat(styles.paddingBottom);
                 const contentHeight = section.offsetHeight - paddingTop - paddingBottom;
 
-                if (!isFixed && sectionTop <= 0 && contentHeight <= window.innerHeight) {
+                const viewportHeight = Math.max(
+                    document.documentElement.clientHeight ?? 0,
+                    window.innerHeight ?? 0
+                );
+
+                if (!isFixed && sectionTop <= 0 && contentHeight <= viewportHeight) {
                     // Store original top position before fixing
                     originalSectionTop.current = section.offsetTop;
                     setIsFixed(true);
-                } else if (isFixed && currentScrollY < originalSectionTop.current) {
+                } else if (isFixed
+                    && (currentScrollY < originalSectionTop.current
+                        || currentScrollY < viewportHeight)) {
                     // Unfix if scrolling up past original position
                     setIsFixed(false);
                 }
@@ -66,10 +75,15 @@ function About() {
         };
 
         window.addEventListener('scroll', handleScroll);
-        document.getElementById('about-link')?.addEventListener('click', handleAboutLinkClick);
+        const aboutLink = document.getElementById('about-link');
+        if (aboutLink) {
+            aboutLink.addEventListener('click', handleAboutLinkClick);
+        }
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            document.getElementById('about-link')?.removeEventListener('click', handleAboutLinkClick);
+            if (aboutLink) {
+                aboutLink.removeEventListener('click', handleAboutLinkClick);
+            }
         };
     }, [isFixed]);
 
