@@ -37,9 +37,9 @@ function Header({ isDarkMode, toggleDarkMode }) {
                 )}
             </div>
             <div className="header-links">
-                <a href="#" id="about-link">About</a>
-                <a href="#" id="projects-link">Projects</a>
-                <a href="#" onClick={handleContactClick}>Contact</a>
+                <div id="about-link">About</div>
+                <div id="projects-link">Projects</div>
+                <div onClick={handleContactClick}>Contact</div>
             </div>
         </nav>
     );
