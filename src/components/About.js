@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import profilePicture from '../img/png/jeremy.png';
 import { PythonIcon, DjangoIcon, MySqlIcon, CssIcon, HtmlIcon, JavaScriptIcon, GitIcon } from './Icons'
 
@@ -7,6 +7,13 @@ function About() {
     const sectionRef = useRef(null);
     const originalSectionTop = useRef(0); // Store original top position
     const aboutContentRef = useRef(null);
+
+    useLayoutEffect(() => {
+        const section = sectionRef.current;
+        if (section) {
+            originalSectionTop.current = section.offsetTop;
+        }
+    }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -22,15 +29,31 @@ function About() {
             }
         );
 
-        const observedElement = aboutContentRef.current;
+        // Handle clicks on the "About" link
+        const handleAboutLinkClick = (event) => {
+            event.preventDefault();
+            window.scrollTo({
+                top: originalSectionTop.current,
+                behavior: 'smooth'
+            });
+        };
 
+        const observedElement = aboutContentRef.current;
         if (observedElement) {
             observer.observe(observedElement);
+        }
+
+        const aboutLink = document.getElementById('about-link');
+        if (aboutLink) {
+            aboutLink.addEventListener('click', handleAboutLinkClick);
         }
 
         return () => {
             if (observedElement) {
                 observer.unobserve(observedElement);
+            }
+            if (aboutLink) {
+                aboutLink.removeEventListener('click', handleAboutLinkClick);
             }
         };
     }, []);
@@ -65,25 +88,9 @@ function About() {
             }
         };
 
-        // Handle clicks on the "About" link
-        const handleAboutLinkClick = (event) => {
-            event.preventDefault();
-            window.scrollTo({
-                top: originalSectionTop.current,
-                behavior: 'smooth'
-            });
-        };
-
         window.addEventListener('scroll', handleScroll);
-        const aboutLink = document.getElementById('about-link');
-        if (aboutLink) {
-            aboutLink.addEventListener('click', handleAboutLinkClick);
-        }
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            if (aboutLink) {
-                aboutLink.removeEventListener('click', handleAboutLinkClick);
-            }
         };
     }, [isFixed]);
 
