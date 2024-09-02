@@ -9,10 +9,14 @@ function ProjectDetails({ projects, selectedProjectId }) {
     return (
         <div className="project-details">
             <h3>
-                <a href={selectedProject.link} target="_blank" rel="noreferrer nofollow noopener">
-                    {selectedProject.title}
-                    <NewWindowIcon alt="View Project" />
-                </a>
+                {selectedProject.link ? (
+                    <a href={selectedProject.link} target="_blank" rel="noreferrer nofollow noopener">
+                        {selectedProject.title}
+                        <NewWindowIcon alt="View Project" />
+                    </a>
+                ) : (
+                    <span>{selectedProject.title}</span>
+                )}
                 {selectedProject.source && (
                     <a href={selectedProject.source} target="_blank" rel="noreferrer nofollow noopener" className="view-github">
                         <ViewOnGitHubIcon alt="View on GitHub" />
