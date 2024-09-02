@@ -20,13 +20,15 @@ function ProjectIcons({ projects, selectedProjectId }) {
             }
         );
 
-        if (projectIconsRef.current) {
-            observer.observe(projectIconsRef.current);
+        const observedElement = projectIconsRef.current;
+
+        if (observedElement) {
+            observer.observe(observedElement);
         }
 
         return () => {
-            if (projectIconsRef.current) {
-                observer.unobserve(projectIconsRef.current);
+            if (observedElement) {
+                observer.unobserve(observedElement);
             }
         };
     }, []);
