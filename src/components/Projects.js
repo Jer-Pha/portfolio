@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import ProjectList from './ProjectList';
 import ProjectDetails from './ProjectDetails';
 import ProjectIcons from './ProjectIcons';
@@ -110,6 +110,13 @@ function Projects() {
     };
     const projectsContentRef = useRef(null);
 
+    useLayoutEffect(() => {
+        const section = sectionRef.current;
+        if (section) {
+            originalSectionTop.current = section.offsetTop;
+        }
+    }, []);
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -129,9 +136,26 @@ function Projects() {
             observer.observe(observedElement);
         }
 
+        // Handle clicks on the "Projects" link
+        const handleProjectsLinkClick = (event) => {
+            event.preventDefault();
+            window.scrollTo({
+                top: originalSectionTop.current,
+                behavior: 'smooth'
+            });
+        };
+
+        const projectsLink = document.getElementById('projects-link');
+        if (projectsLink) {
+            projectsLink.addEventListener('click', handleProjectsLinkClick);
+        }
+
         return () => {
             if (observedElement) {
                 observer.unobserve(observedElement);
+            }
+            if (projectsLink) {
+                projectsLink.removeEventListener('click', handleProjectsLinkClick);
             }
         };
     }, []);
@@ -165,25 +189,10 @@ function Projects() {
             }
         };
 
-        // Handle clicks on the "Projects" link
-        const handleProjectsLinkClick = (event) => {
-            event.preventDefault();
-            window.scrollTo({
-                top: originalSectionTop.current,
-                behavior: 'smooth'
-            });
-        };
-
         window.addEventListener('scroll', handleScroll);
-        const projectsLink = document.getElementById('projects-link');
-        if (projectsLink) {
-            projectsLink.addEventListener('click', handleProjectsLinkClick);
-        }
+
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            if (projectsLink) {
-                projectsLink.removeEventListener('click', handleProjectsLinkClick);
-            }
         };
     }, [isFixed]);
 
