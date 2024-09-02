@@ -35,7 +35,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background);
   color: var(--text-color);
+}
 
+.bg-background {
+  background-color: var(--background);
+}
+
+.bg-surface {
+  background-color: var(--surface);
 }
 
 .app>*:not(nav) {
@@ -50,6 +57,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
 }
 
 .hidden {
@@ -65,7 +73,6 @@ body {
   position: fixed;
   display: flex;
   flex-direction: row;
-  background-color: var(--background);
   transition: visibility 0.2s ease-in-out, top 0.2s ease-in-out;
   top: -3rem;
   padding: 1rem 0;
@@ -122,38 +129,6 @@ body {
   background-color: var(--surface);
 }
 
-#home.glowing::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3rem;
-  /* Adjust the height of the glow */
-  background: linear-gradient(to top, rgba(0, 100, 200, 0.4), rgba(0, 100, 200, 0));
-  filter: invert(var(--img-invert));
-  /* White glow */
-  opacity: 0;
-  /* Initially hide the glow */
-  animation: pulse 2s infinite;
-  border-top-left-radius: 50%;
-  border-top-right-radius: 50%;
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 0.8;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
 #home>div {
   position: fixed;
   z-index: 0;
@@ -163,6 +138,31 @@ body {
   font-size: 2rem;
   line-height: 100%;
   font-weight: 100;
+}
+
+.hero-view h1:after {
+  content: 'scroll down to see my work';
+  position: absolute;
+  display: flex;
+  font-size: 45%;
+  width: 100%;
+  justify-content: center;
+  opacity: 0;
+  animation: fade 3s linear infinite 4s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 50%;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 @media screen and (min-width: 480px) {
@@ -213,8 +213,11 @@ section {
   width: 100%;
 }
 
-section>div {
-  /* position: relative; */
+section:not(#contact) {
+  padding-bottom: 1rem;
+}
+
+section>div:not(.wave-container) {
   padding: 0 1rem;
 }
 
@@ -281,7 +284,7 @@ section h2:before {
   flex-direction: column-reverse;
   align-items: center;
   opacity: 0;
-  transition: all 1s ease-in-out;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
   transform: translateY(5rem);
 }
 
@@ -646,7 +649,7 @@ section h2:before {
 .image-carousel,
 .carousel-container,
 .carousel-container img {
-  width: 100vw;
+  width: calc(100vw - 2rem);
   aspect-ratio: 16/9;
 }
 
@@ -771,6 +774,7 @@ section h2:before {
 .modal-content img {
   max-width: 90vw;
   max-height: 90vh;
+  max-height: calc(var(--vh, 1vh) * 90);
 }
 
 .close-button {
@@ -838,6 +842,7 @@ section h2:before {
 #contact {
   justify-content: space-between;
   min-height: calc(100vh - 1rem);
+  min-height: calc((var(--vh, 1vh) * 100) - 1rem);
   overflow: hidden;
 }
 
@@ -845,11 +850,6 @@ section h2:before {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-
-  .about-content {
-    max-width: 40vw;
-  }
 }
 
 @media screen and (min-width: 768px) {
