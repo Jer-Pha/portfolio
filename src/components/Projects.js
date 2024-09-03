@@ -9,6 +9,7 @@ function Projects() {
     const sectionRef = useRef(null);
     const originalSectionTop = useRef(0); // Store original top position
     const [selectedProjectId, setSelectedProjectId] = useState(null);
+    const [minHeight, setMinHeight] = useState(0);
     const projects = [
         {
             id: 1,
@@ -115,6 +116,11 @@ function Projects() {
         if (section) {
             originalSectionTop.current = section.offsetTop;
         }
+
+        const container = projectsContentRef.current;
+        if (container) {
+            setMinHeight(container.offsetHeight);
+        }
     }, []);
 
     useEffect(() => {
@@ -127,7 +133,7 @@ function Projects() {
                 });
             },
             {
-                threshold: 0.5,
+                threshold: 0.35,
             }
         );
 
@@ -210,7 +216,11 @@ function Projects() {
                 className={`projects section-body ${isFixed ? 'fixed' : ''}`}
                 ref={sectionRef}>
                 <h2>Projects</h2>
-                <div className="outer-project-container" ref={projectsContentRef}>
+                <div
+                    className="outer-project-container"
+                    ref={projectsContentRef}
+                    style={{ minHeight: minHeight + 7 + 'px' }}
+                >
                     <div className="inner-project-container">
                         <ProjectList projects={projects} onProjectSelect={handleProjectSelect} />
                         <ProjectDetails projects={projects} selectedProjectId={selectedProjectId} />
