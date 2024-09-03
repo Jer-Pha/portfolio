@@ -407,7 +407,7 @@ section h2:before {
 .inner-project-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: stretch;
   gap: 1rem;
 }
@@ -417,6 +417,7 @@ section h2:before {
   .inner-project-container {
     flex-direction: row;
     gap: 4rem;
+    justify-content: center;
   }
 }
 
