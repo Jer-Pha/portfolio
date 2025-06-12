@@ -12,38 +12,10 @@ function Projects() {
   const projects = [
     {
       id: 0,
-      title: "Controller Chronicle",
-      slug: "cc",
-      blurb:
-        "Controller Chronicle is a dynamic gaming news aggregator designed to streamline your daily dose of gaming news. This React-based web application gathers articles from 29 leading gaming news outlets, providing a centralized hub for staying up-to-date with the latest trends and stories. With a focus on user experience, Controller Chronicle offers intuitive navigation and filtering options, allowing you to easily discover news based on your preferred topics or outlets. The application is optimized for performance and responsiveness, ensuring a seamless browsing experience across devices. Explore Controller Chronicle to effortlessly stay informed about the gaming world.",
-      link: "https://www.controllerchronicle.com/",
-      source: "https://github.com/Jer-Pha/games-daily",
-      imageCount: 5,
-      icons: [
-        "ReactIcon",
-        "JavaScriptIcon",
-        "GeminiIcon",
-        "HtmlIcon",
-        "TailwindCssIcon",
-        "CssIcon",
-        "PythonIcon",
-        "DjangoIcon",
-        "ApiIcon",
-        "GitIcon",
-
-        "RedisIcon",
-        "AwsIcon",
-        "CloudflareIcon",
-        "GimpIcon",
-        "SeoIcon",
-      ],
-    },
-    {
-      id: 1,
       title: "Kinda Funny Database",
       slug: "kfdb",
       blurb:
-        "Dive into the ultimate Kinda Funny resource with this fan-built database, providing a comprehensive resource for Kinda Funny YouTube and Patreon content. Originally created as a PHP site in 2022, I rebuilt the site from the ground up in Python with the Django framework. Containerized with Docker and hosted on AWS, this database is optimized for performance with a focus on scalability. The frontend leverages HTMX for a seamless user experience and is styled with Tailwind CSS and DaisyUI for a modern and responsive design. Explore the database and utilize the public REST API to build your own Kinda Funny applications. View the full project on GitHub.",
+        "Dive into the ultimate Kinda Funny resource with this fan-built database, providing a comprehensive resource for Kinda Funny YouTube and Patreon content. Originally created as a PHP site in 2022, I rebuilt the site from the ground up in Python with the Django REST Framework. Containerized with Docker and hosted on AWS, this database is optimized for performance with a focus on scalability through strategic indexing and Redis caching. The frontend leverages HTMX for a seamless user experience and is styled with Tailwind CSS and DaisyUI for a modern and responsive design. Explore the database and utilize the public REST API to build your own Kinda Funny applications. View the full project on GitHub.",
       link: "https://www.kfdb.app/",
       source: "https://github.com/Jer-Pha/kfdb",
       imageCount: 5,
@@ -75,11 +47,39 @@ function Projects() {
       ],
     },
     {
+      id: 1,
+      title: "Controller Chronicle",
+      slug: "cc",
+      blurb:
+        "Controller Chronicle is a dynamic gaming news aggregator designed to streamline your daily dose of gaming news. This React-based web application gathers articles from 29 leading gaming news outlets, providing a centralized hub for staying up-to-date with the latest trends and stories. Its key feature is the integration of the Google Gemini API to perform AI-powered text summarization and topic clustering, providing unique insights and automated organization. With a focus on user experience, Controller Chronicle offers intuitive navigation and filtering options, allowing you to easily discover news based on your preferred topics or outlets. Performance is optimized through Redis caching, ensuring near-instant data retrieval and a seamless, responsive experience across all devices. Explore Controller Chronicle to effortlessly stay informed about the gaming world.",
+      link: "https://www.controllerchronicle.com/",
+      source: "https://github.com/Jer-Pha/games-daily",
+      imageCount: 5,
+      icons: [
+        "ReactIcon",
+        "JavaScriptIcon",
+        "GeminiIcon",
+        "HtmlIcon",
+        "TailwindCssIcon",
+        "CssIcon",
+        "PythonIcon",
+        "DjangoIcon",
+        "ApiIcon",
+        "GitIcon",
+
+        "RedisIcon",
+        "AwsIcon",
+        "CloudflareIcon",
+        "GimpIcon",
+        "SeoIcon",
+      ],
+    },
+    {
       id: 2,
       title: "Survayy",
       slug: "survayy",
       blurb:
-        "Simplify ranked-choice decision making with Survayy, a platform for creating, sharing, and analyzing surveys. Create surveys, gather responses, and gain valuable insights with robust analytics. Powered by Django and MySQL for a robust and reliable experience, utilizing Celery for efficient background task processing, and featuring a customized Material Design interface for a familiar and intuitive user experience, Survayy is built to handle high-volume surveys, with each survey capable of receiving up to 100,000 responses.",
+        "Simplify ranked-choice decision making with Survayy, a platform for creating, sharing, and analyzing surveys. Create surveys, gather responses, and gain valuable insights with robust analytics. Powered by Django and MySQL for a robust and reliable experience, utilizing Celery and Redis for efficient background task processing, and featuring a customized Material Design interface for a familiar and intuitive user experience, Survayy is built to handle high-volume surveys, with each survey capable of receiving up to 100,000 responses. The platform is fully integrated with the PayPal API for secure purchasing of survey extensions and Amazon SES for a robust user notification system.",
       link: "https://www.survayy.com/",
       imageCount: 5,
       icons: [
