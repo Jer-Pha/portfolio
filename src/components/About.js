@@ -7,7 +7,7 @@ import {
   CssIcon,
   HtmlIcon,
   JavaScriptIcon,
-  GitIcon,
+  ReactIcon,
 } from "./Icons";
 
 function About() {
@@ -122,17 +122,18 @@ function About() {
           <div className="about-content">
             <p className="blurb">
               Driven by a passion for crafting elegant and efficient software
-              solutions, I'm a data-driven software developer with a focus on
-              backend optimization and frontend experience. With over two years
-              of hands-on experience building production-level applications with
-              Python and Django, I've successfully optimized complex systems for
-              improved performance and scalability. I enjoy creating
-              user-friendly, innovative, and performant applications that
-              deliver tangible value by leveraging a decade of professional
-              experience in project management and data-driven decision-making.
-              Continuously exploring new technologies and best practices, I'm
-              always eager to contribute to innovative projects and make a
-              meaningful impact.
+              solutions, I'm a Software Developer with a focus on backend
+              optimization and frontend experience. What sets me apart is the
+              decade of professional experience in project management and data
+              analysis that I bring to every line of code. This background
+              allows me to build robust features while understanding business
+              objectives, delivering software that provides real, tangible
+              value. I have built production-level applications with Python and
+              Django, optimized complex systems for improved performance and
+              scalability, and always enjoy creating user-friendly, innovative,
+              and performant applications. Continuously exploring new
+              technologies and best practices, I'm always eager to contribute to
+              innovative projects and make a meaningful impact.
             </p>
             <div className="icons">
               <PythonIcon />
@@ -141,7 +142,7 @@ function About() {
               <HtmlIcon />
               <CssIcon />
               <JavaScriptIcon />
-              <GitIcon />
+              <ReactIcon />
             </div>
           </div>
           <div className="profile-picture-container">
