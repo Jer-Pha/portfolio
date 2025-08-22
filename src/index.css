@@ -502,6 +502,12 @@ section h2:before {
   opacity: 1;
 }
 
+.animate-in .project-list>div:nth-child(6) {
+  transform: translateY(0);
+  transition-delay: 1.5s;
+  opacity: 1;
+}
+
 .project-list .list-item.active {
   border: 2px solid var(--accent);
   font-weight: 600;

@@ -12,6 +12,32 @@ function Projects() {
   const projects = [
     {
       id: 0,
+      title: "KF/AI",
+      slug: "kfai",
+      blurb:
+        "Unlock the Kinda Funny archive with this production-ready AI agent, designed to perform natural language queries on over 10,000 videos. This project is a complete, end-to-end Retrieval-Augmented Generation (RAG) system, built from the ground up with a fully local, open-source stack. The system is powered by a sophisticated ETL pipeline that extracts and cleans data using a hybrid approach with yt-dlp and a local Whisper model for 100% data coverage. At its core is a custom, multi-stage query parser that transforms conversational questions into high-precision hybrid searches on a PostgreSQL database with the pgvector extension. The entire project is engineered to a professional standard, featuring a full CI/CD pipeline in GitHub Actions that enforces 100% test coverage with Pytest, strict-mode type safety with Mypy, and automated code quality with Ruff. Dependency management is handled by Poetry for deterministic, reproducible builds. Explore the complete architecture and automated quality gates on GitHub.",
+      source: "https://github.com/Jer-Pha/kfai-pipeline",
+      imageCount: 3,
+      icons: [
+        "PythonIcon",
+        "OllamaIcon",
+        "LangChainIcon",
+        "HuggingFaceIcon",
+        "PyTorchIcon",
+        "PostgreSQLIcon",
+        "MySqlIcon",
+        "PoetryIcon",
+        "RuffIcon",
+        "PytestIcon",
+        "GradioIcon",
+        "GitIcon",
+        "ApiIcon",
+        "CssIcon",
+        "YouTubeIcon",
+      ],
+    },
+    {
+      id: 1,
       title: "Kinda Funny Database",
       slug: "kfdb",
       blurb:
@@ -47,7 +73,7 @@ function Projects() {
       ],
     },
     {
-      id: 1,
+      id: 2,
       title: "Controller Chronicle",
       slug: "cc",
       blurb:
@@ -75,7 +101,7 @@ function Projects() {
       ],
     },
     {
-      id: 2,
+      id: 3,
       title: "Survayy",
       slug: "survayy",
       blurb:
@@ -104,7 +130,7 @@ function Projects() {
       ],
     },
     {
-      id: 3,
+      id: 4,
       title: "Portfolio Website",
       slug: "portfolio",
       blurb:
@@ -122,7 +148,7 @@ function Projects() {
       ],
     },
     {
-      id: 4,
+      id: 5,
       title: "django-qs2csv",
       slug: "qs2csv",
       blurb:
